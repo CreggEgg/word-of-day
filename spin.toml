@@ -1,0 +1,19 @@
+spin_manifest_version = 2
+
+[application]
+name = "word-of-day"
+version = "0.1.0"
+authors = ["CreggEgg <eggcregg@gmail.com>"]
+description = ""
+
+[[trigger.http]]
+route = "/..."
+component = "word-of-day"
+
+[component.word-of-day]
+source = "target/wasm32-wasi/release/word_of_day.wasm"
+key_value_stores = ["default"]
+allowed_outbound_hosts = []
+[component.word-of-day.build]
+command = "cargo build --target wasm32-wasi --release"
+watch = ["src/**/*.rs", "Cargo.toml"]
