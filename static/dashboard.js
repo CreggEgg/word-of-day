@@ -5,8 +5,8 @@ let new_word = document.querySelector("#new-word")
 let new_word_submit = document.querySelector("#submit-new-word")
 
 new_password_submit.onclick = () => {
-    alert(window.location.host)
-    alert(window.location.origin)
+    // alert(window.location.host)
+    // alert(window.location.origin)
     let password = current_password.value ?? " "
 
     let response = httpGet(`/set-password?new=${new_password.value}&old=${password}`)
