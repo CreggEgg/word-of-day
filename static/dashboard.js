@@ -24,8 +24,13 @@ new_password_submit.onclick = () => {
     }
     // if (response == {"NewPassword": {"password": "test"}})
 
-    alert(JSON.stringify(response))
+    // alert(JSON.stringify(response))
 }
 new_word_submit.onclick = () => {
-    let current_password = current_password.value
+    let password = current_password.value ?? " "
+    let response = httpGet(`/set-today?password=${password}&new_word=${new_word.value}`)
+    if (response["Unauthenticated"] != undefined) {
+        window.location.href = `/word-of-day/cooldown?cooldown=${response["Unauthenticated"].cooldown}`
+    }
+    alert("success")
 }

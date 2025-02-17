@@ -160,7 +160,7 @@ mod api {
             .iter()
             .filter(|(key, _)| *key == param)
             .last()
-            .map(|(_, value)| value.to_string())
+            .map(|(_, value)| urlencoding::decode(value).unwrap().to_string())
     }
 
     fn verify_password(password: &str) -> anyhow::Result<bool> {
