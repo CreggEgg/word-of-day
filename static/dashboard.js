@@ -13,7 +13,7 @@ new_password_submit.onclick = () => {
 
     console.log(response.password)
     if (response["Unauthenticated"] != undefined) {
-        window.location.href = `/cooldown.html?cooldown=${response["Unauthenticated"].cooldown}`
+        window.location.href = `/word-of-day/cooldown?cooldown=${response["Unauthenticated"].cooldown}`
     }
     if (response["NewPassword"] != undefined) {
         current_password.value = response["NewPassword"].password
