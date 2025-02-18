@@ -60,3 +60,25 @@ button {
 button:hover {
 	background-color: var(--primary-color);
 }
+
+#hidden-button {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	background-color: var(--accent-color);
+	border: none;
+	border-radius: 5px;
+	color: var(--secondary-color);
+	padding: 5px 10px;
+	cursor: pointer;
+	/* transition: transform 0.25s; */
+	text-decoration: none;
+	opacity: 0;
+	/* transform: translateY(-50px); */
+}
+#hidden-button:hover {
+	/* transform: translateY(0px); */
+	/* display: block; */
+	opacity: 1;
+	/* background-color: var(--primary-color); */
+}
