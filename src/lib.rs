@@ -44,7 +44,7 @@ mod api {
         NewWord { word: &'a str },
         Today { word: &'a str },
     }
-    pub fn set_today(req: Request, params: Params) -> anyhow::Result<impl IntoResponse> {
+    pub fn set_today(req: Request, _params: Params) -> anyhow::Result<impl IntoResponse> {
         let query = querystring::querify(req.query());
         let Some(password) = get_from_query(&query, "password") else {
             return error_response(&ErrorResponse::MissingParameter { name: "password" });
@@ -114,7 +114,12 @@ mod api {
             .map(|duration| duration.as_millis() < TIMEOUT)
             .unwrap_or_default()
         {
-            return error_response(&ErrorResponse::CooldownActive { cooldown: TIMEOUT });
+            return error_response(&ErrorResponse::CooldownActive {
+                cooldown: SystemTime::now()
+                    .duration_since(timeout_start)
+                    .unwrap()
+                    .as_millis(),
+            });
         }
         let query = querystring::querify(req.query());
 
