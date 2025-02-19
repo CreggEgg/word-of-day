@@ -74,6 +74,7 @@ mod api {
         store.set("today", new_word.as_bytes())?;
 
         Ok(Response::builder()
+            .header("Access-Control-Allow-Origin", "*")
             .header("content-type", "application/json")
             .body(serde_json::to_string(&SuccessResponse::NewWord { word: &new_word }).unwrap())
             .build())
@@ -84,6 +85,7 @@ mod api {
         match get_todays_word(&store)? {
             Some(word) => Ok(Response::builder()
                 .status(200)
+                .header("Access-Control-Allow-Origin", "*")
                 .header("content-type", "application/json")
                 .body(serde_json::to_string(&SuccessResponse::Today { word: &word }).unwrap())
                 .build()),
@@ -125,7 +127,9 @@ mod api {
 
         let mut response = Response::builder();
 
-        let response = response.header("content-type", "application/json");
+        let response = response
+            .header("content-type", "application/json")
+            .header("Access-Control-Allow-Origin", "*");
         Ok(if change_password(&old_password, &new_password)? {
             response
                 .status(200)
@@ -198,6 +202,7 @@ mod api {
     fn error_response(error: &ErrorResponse) -> anyhow::Result<Response> {
         return Ok(Response::builder()
             .status(400)
+            .header("Access-Control-Allow-Origin", "*")
             .header("content-type", "application/json")
             .body(serde_json::to_string(error).unwrap())
             .build());
